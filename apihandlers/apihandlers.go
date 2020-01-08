@@ -26,7 +26,7 @@ func RequestDump(request *http.Request) {
 func GetInsertRecordEndpointHandler(client *mongo.Client) func(http.ResponseWriter, *http.Request) {
 	return func(response http.ResponseWriter, request *http.Request) {
 		RequestDump(request)
-		
+
 		response.Header().Set("Content-Type", "application/json")
 
 		encoder := json.NewEncoder(response)
