@@ -24,16 +24,32 @@ func GetDTO(e *apimodels.EventRequestModel) *datamodels.EventDataModel {
 		return nil
 	}
 
+	k := 0
+	numberOfValidReadings := 0
+	validReadings := make([]int, n)
+
+	for i, reading := range event.Readings {
+		if len(reading.Sensor) > 0 && reading.Temperature > calculations.AbsoluteZeroCf && reading.Humidity >= 0 && reading.Humidity <= 100 {
+			numberOfValidReadings++
+			validReadings[k] = i
+			k++
+		}
+	}
+
+	if numberOfValidReadings < 1 || numberOfValidReadings > n {
+		return nil
+	}
+
 	eventDTO := datamodels.EventDataModel{
 		Sender:   event.Sender,
 		Event:    event.Event,
 		Version:  event.Version,
 		Date:     time.Now(),
-		Readings: make([]datamodels.ReadingDataModel, n),
+		Readings: make([]datamodels.ReadingDataModel, numberOfValidReadings),
 	}
 
-	for i := 0; i < n; i++ {
-		reading := event.Readings[i]
+	for i := 0; i < numberOfValidReadings; i++ {
+		reading := event.Readings[validReadings[i]]
 		t := (float64)(reading.Temperature)
 		h := (float64)(reading.Humidity)
 
@@ -49,18 +65,6 @@ func GetDTO(e *apimodels.EventRequestModel) *datamodels.EventDataModel {
 			Ps:          (float32)((int)(calculations.GetSaturatedVaporPressure(t, h)*100)) / 100.0,
 			Pa:          (float32)((int)(calculations.GetActualVaporPressure(t, h)*100)) / 100.0,
 			HI:          (float32)((int)(calculations.GetHeatIndex(t, h)*100)) / 100.0,
-		}
-
-		if reading.Temperature < calculations.AbsoluteZeroCf {
-			readingDTO.Temperature = calculations.AbsoluteZeroCf
-			readingDTO.DewPoint = calculations.AbsoluteZeroCf
-			readingDTO.HeatIndex = calculations.AbsoluteZeroCf
-		}
-
-		if reading.Humidity < 0 || reading.Humidity > 100 {
-			readingDTO.Humidity = 0
-			readingDTO.DewPoint = calculations.AbsoluteZeroCf
-			readingDTO.HeatIndex = calculations.AbsoluteZeroCf
 		}
 
 		eventDTO.Readings[i] = readingDTO
