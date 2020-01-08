@@ -20,8 +20,8 @@ const bd float64 = 18.678 // NA
 const cf float32 = 257.14 // °C
 const cd float64 = 257.14 // °C
 
-const df float32 = 234.5  // °C
-const dd float64 = 234.5  // °C
+const df float32 = 234.5 // °C
+const dd float64 = 234.5 // °C
 
 // Heat index constants
 const c1f float32 = -8.78469475556
