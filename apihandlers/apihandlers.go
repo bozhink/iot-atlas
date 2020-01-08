@@ -25,19 +25,21 @@ func RequestDump(request *http.Request) {
 // GetInsertRecordEndpointHandler returns api handler for inserting requested data to MongoDB.
 func GetInsertRecordEndpointHandler(client *mongo.Client) func(http.ResponseWriter, *http.Request) {
 	return func(response http.ResponseWriter, request *http.Request) {
+		RequestDump(request)
+		
 		response.Header().Set("Content-Type", "application/json")
 
 		encoder := json.NewEncoder(response)
 
 		if request.Header.Get("Content-Type") == "application/json" {
 
-			decoder := json.NewDecoder(request.Body)
-
-			RequestDump(request)
-
 			var event apimodels.EventRequestModel
-			_ = decoder.Decode(&event)
-			log.Println(event)
+			decodeError := json.NewDecoder(request.Body).Decode(&event)
+			if decodeError != nil {
+				log.Println("Request decode error", decodeError)
+				response.WriteHeader(400)
+				encoder.Encode(nil)
+			}
 
 			eventDTO := datamappings.GetDTO(&event)
 
@@ -52,7 +54,7 @@ func GetInsertRecordEndpointHandler(client *mongo.Client) func(http.ResponseWrit
 					response.WriteHeader(500)
 					encoder.Encode(err)
 				} else {
-					response.WriteHeader(200)
+					response.WriteHeader(201)
 					encoder.Encode(result)
 				}
 			}
