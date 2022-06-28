@@ -7,7 +7,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo"
 
-	"../datamodels"
+	"iot-atlas.bozhink.go/datamodels"
 )
 
 // RegisterEvent inserts event DTO into the MongoDB.

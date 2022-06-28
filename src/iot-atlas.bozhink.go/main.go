@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"./apihandlers"
+	"iot-atlas.bozhink.go/apihandlers"
 )
 
 const port int = 60135

@@ -8,9 +8,9 @@ import (
 
 	"go.mongodb.org/mongo-driver/mongo"
 
-	"../apimodels"
-	"../datamappings"
-	"../dataservice"
+	"iot-atlas.bozhink.go/apimodels"
+	"iot-atlas.bozhink.go/datamappings"
+	"iot-atlas.bozhink.go/dataservice"
 )
 
 // RequestDump dumps HTTP request data

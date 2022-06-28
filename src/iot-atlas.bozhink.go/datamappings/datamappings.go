@@ -3,9 +3,9 @@ package datamappings
 import (
 	"time"
 
-	"../apimodels"
-	"../calculations"
-	"../datamodels"
+	"iot-atlas.bozhink.go/apimodels"
+	"iot-atlas.bozhink.go/calculations"
+	"iot-atlas.bozhink.go/datamodels"
 )
 
 // GetDTO returns event data model.
