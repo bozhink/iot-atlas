@@ -9,6 +9,10 @@ type ReadingRequestModel struct {
 	DewPoint    float32 `json:"dewpoint,omitempty" bson:"dewpoint,omitempty"`
 	Pressure    float32 `json:"pressure,omitempty" bson:"pressure,omitempty"`
 	Altitude    float32 `json:"altitude,omitempty" bson:"altitude,omitempty"`
+	Illuminance float32 `json:"illuminance,omitempty" bson:"illuminance,omitempty"`
+	UVA         float32 `json:"uva,omitempty" bson:"uva,omitempty"`
+	UVB         float32 `json:"uvb,omitempty" bson:"uvb,omitempty"`
+	UVIndex     float32 `json:"uvIndex,omitempty" bson:"uvIndex,omitempty"`
 }
 
 // EventRequestModel - event request model.

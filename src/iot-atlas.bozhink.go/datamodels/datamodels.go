@@ -15,6 +15,10 @@ type ReadingDataModel struct {
 	DewPoint    float32 `bson:"dewpoint,omitempty"`
 	Pressure    float32 `bson:"pressure,omitempty"`
 	Altitude    float32 `bson:"altitude,omitempty"`
+	Illuminance float32 `bson:"illuminance,omitempty"`
+	UVA         float32 `bson:"uva,omitempty"`
+	UVB         float32 `bson:"uvb,omitempty"`
+	UVIndex     float32 `bson:"uvIndex,omitempty"`
 	DP          float32 `bson:"dp,omitempty"`
 	Ps          float32 `bson:"ps,omitempty"`
 	Pa          float32 `bson:"pa,omitempty"`
